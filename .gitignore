@@ -1,3 +1,2 @@
 .env
-old_ip.txt
-dns_update.log
+logs

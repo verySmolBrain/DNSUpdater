@@ -1,0 +1,16 @@
+# docker-compose.yml
+version: "3.3"
+name: "DDNS Updater"
+services:
+    update:
+        build: .
+        environment:
+          TTL: "900" # Interval between checks (Default 15 minutes)
+          USERNAME: "" # Username for Google DDNS
+          PASSWORD: "" # Password for Google DDNS
+          SUBDOMAIN: "" # Subdomain to update
+          DOMAIN: "" # Domain to update
+          
+        restart: unless-stopped
+        volumes:
+            - ./logs:/data/logs
