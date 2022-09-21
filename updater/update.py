@@ -27,7 +27,7 @@ def setupEnvironment():
     if not os.path.exists("logs"):
         os.makedirs("logs")
 
-    curTime = time.strftime("%Y_%m_%d-%I_%M_%S_%p")
+    curTime = time.strftime("%Y_%m_%d")
     logName = f"logs/{curTime}"
     logging.basicConfig(
         format = '%(asctime)s | %(levelname)s: %(message)s', 
