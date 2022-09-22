@@ -5,11 +5,11 @@ services:
     update:
         build: .
         environment:
-          TTL: "900" # Interval between checks (Default 15 minutes)
-          USERNAME: "" # Username for Google DDNS
-          PASSWORD: "" # Password for Google DDNS
-          SUBDOMAIN: "" # Subdomain to update
-          DOMAIN: "" # Domain to update
+          TTL: ${TTL} # Interval between checks (Default 15 minutes)
+          USERNAME: ${USERNAME} # Username for Google DDNS
+          PASSWORD: ${PASSWORD} # Password for Google DDNS
+          SUBDOMAIN: ${SUBDOMAIN} # Subdomain to update
+          DOMAIN: ${DOMAIN} # Domain to update
           
         restart: unless-stopped
         volumes:

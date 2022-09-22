@@ -20,7 +20,6 @@ def setupEnvironment():
             logging.critical(f"Please set the {env_var} environment variable")
             exit(1)
 
-
     if int(os.environ.get("TTL")) < 900:
         logging.critical(
             f"Please set TTL to at least 900 seconds, currently set to {os.environ.get('TTL')}")

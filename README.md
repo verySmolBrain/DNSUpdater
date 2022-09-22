@@ -4,7 +4,18 @@ A very simple DNS updater for Google Domains.
 
 ### Setup
 
-1. Fill in the variables under environment in the docker-compose.yml file. 
+1. Create a .env file in the base folder then copy and fill this in:
+
+```
+# Interval between checks (Default 15 minutes)
+TTL = "900" 
+
+USERNAME = "" 
+PASSWORD = "" 
+
+SUBDOMAIN = "" 
+DOMAIN = "" 
+```
 
 2. Run the container with 
 
