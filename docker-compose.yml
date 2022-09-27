@@ -10,6 +10,8 @@ services:
           PASSWORD: ${PASSWORD} # Password for Google DDNS
           SUBDOMAIN: ${SUBDOMAIN} # Subdomain to update
           DOMAIN: ${DOMAIN} # Domain to update
+
+          TZ: "TZ=Australia/Sydney" # Timezone
           
         restart: unless-stopped
         volumes:
