@@ -24,8 +24,6 @@ def setupEnvironment():
         logging.critical(
             f"Please set TTL to at least 900 seconds, currently set to {os.environ.get('TTL')}")
     
-    print(os.listdir("logs"))
-    
     if not os.path.exists("logs"):
         os.makedirs("logs")
     while len(os.listdir("logs")) > 3:
