@@ -1,2 +1,3 @@
 dns_updater_env
 logs
+updater/auth_details.toml
