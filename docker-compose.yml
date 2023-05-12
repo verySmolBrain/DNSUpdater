@@ -5,14 +5,10 @@ services:
     update:
         build: .
         environment:
-          TTL: ${TTL} # Interval between checks (Default 15 minutes)
-          USERNAME: ${USERNAME} # Username for Google DDNS
-          PASSWORD: ${PASSWORD} # Password for Google DDNS
-          SUBDOMAIN: ${SUBDOMAIN} # Subdomain to update
-          DOMAIN: ${DOMAIN} # Domain to update
-
-          TZ: "TZ=Australia/Sydney" # Timezone
+          # Timezone
+          TZ: "TZ=Australia/Sydney" 
           
         restart: unless-stopped
+        
         volumes:
             - ./logs:/data/logs

@@ -1,0 +1,22 @@
+# TTL for DNS record
+ttl = 900
+
+[[auth_details]]
+# Username for Google DDNS
+username = "a" 
+# Password for Google DDNS
+password = "b" 
+# Subdomain to update
+subdomain = "c" 
+# Domain to update
+domain = "d" 
+
+[[auth_details]]
+# Username for Google DDNS
+username = "aa"
+# Password for Google DDNS
+password = "bb"
+# Subdomain to update
+subdomain = "cc"
+# Domain to update
+domain = "dd"
