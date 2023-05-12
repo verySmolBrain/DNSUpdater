@@ -17,6 +17,6 @@ username = "aa"
 # Password for Google DDNS
 password = "bb"
 # Subdomain to update
-subdomain = "cc"
+subdomain = "ccc"
 # Domain to update
 domain = "dd"
