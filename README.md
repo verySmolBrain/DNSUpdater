@@ -4,17 +4,33 @@ A very simple DNS updater for Google Domains.
 
 ### Setup
 
-1. Create a .env file in the base folder then copy and fill this in:
+1.  In updater/auth_details.toml, fill in the details for each domain you want to update.
+    If there are multiple domains, add another `[[auth_details]]` section.
+    The resulting file should look like this:
 
 ```
-# Interval between checks (Default 15 minutes)
-TTL = "900" 
+# TTL for DNS record in seconds
+ttl = 900
 
-USERNAME = "" 
-PASSWORD = "" 
+[[auth_details]]
+# Username for Google DDNS
+username = "" 
+# Password for Google DDNS
+password = "" 
+# Subdomain to update
+subdomain = "" 
+# Domain to update
+domain = "" 
 
-SUBDOMAIN = "" 
-DOMAIN = "" 
+[[auth_details]]
+# Username for Google DDNS
+username = ""
+# Password for Google DDNS
+password = ""
+# Subdomain to update
+subdomain = ""
+# Domain to update
+domain = ""
 ```
 
 2. Run the container with 
