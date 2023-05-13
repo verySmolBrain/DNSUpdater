@@ -104,7 +104,7 @@ class DNSUpdater:
             logging.info("IPs match, no update needed")
             return False
     
-    def update_ip(self, username: str, password, domain: str, subdomain: str):
+    def update_ip(self, username: str, password: str, domain: str, subdomain: str):
         '''
         Sends a request to Google Domains to update the ip of subdomain.domain.
         The request is formatted as follows:
@@ -145,9 +145,14 @@ class DNSUpdater:
         
         self.load_logger()
         
-        for (username, password, domain, subdomain) in self.config.auth_details:
-            if self.check_ip_requires_update(subdomain, domain):
-                self.update_ip(username, password, domain, subdomain)
+        for auth_details in self.config.auth_details:
+            if self.check_ip_requires_update(auth_details.subdomain, auth_details.domain):
+                self.update_ip(
+                    auth_details.username,
+                    auth_details.password,
+                    auth_details.domain,
+                    auth_details.subdomain,
+                )
         
         logging.info(f"Sleeping for {self.config.ttl} seconds")
         threading.Timer(self.config.ttl, self.run_update).start()
