@@ -23,9 +23,25 @@ class DNSUpdaterConfig(BaseModel):
 class DNSUpdater:
     '''
     A class for handling DNS updates.
+    
+    Attributes:
+        config (DNSUpdaterConfig): The configuration for the DNSUpdater.
+        { 
+            ttl, 
+            [ 
+                auth_details { username, password, subdomain, domain } 
+            ] 
+        }
     '''
     
     def __init__(self):
+        '''
+        Initialises the config and logger for the DNSUpdater class.
+        
+        The config is loaded from the auth_details.toml file. This is
+        achieved through the use of Pydantic.
+        '''
+        
         toml_file = Path("auth_details.toml")
         with open(toml_file, "r") as f:
             toml_data = toml.load(f)
@@ -34,6 +50,12 @@ class DNSUpdater:
         self.load_logger()
     
     def load_logger(self):
+        '''
+        Writes to a log file in the logs directory. The log file name is
+        based on the current date in the format YYYY_MM_DD. If there already
+        exists a log file, the oldest log file is deleted.
+        '''
+        
         cur_time = time.strftime("%Y_%m_%d")
         log_name = f"logs/{cur_time}"
         
@@ -53,7 +75,19 @@ class DNSUpdater:
             level = logging.INFO
         )
     
-    def check_ip_requires_update(self, subdomain, domain):
+    def check_ip_requires_update(self, subdomain: str, domain: str) -> bool:
+        '''
+        Returns if subdomain.domain requires an update. This is done by 
+        checking if the ip of subdomain.domain matches the ip of the host.
+        
+        Arguments:
+            subdomain (str): The subdomain of the domain to check.
+            domain (str): The domain to check.
+        
+        Returns:
+            bool: Whether the ip of subdomain.domain matches the ip of the host.
+        '''
+        
         target_ip = subprocess.check_output(
             ["dig", "+short", f"{subdomain}.{domain}"]
         ).decode("utf-8").strip()
@@ -70,7 +104,19 @@ class DNSUpdater:
             logging.info("IPs match, no update needed")
             return False
     
-    def update_ip(self, username: str, password, domain, subdomain):
+    def update_ip(self, username: str, password, domain: str, subdomain: str):
+        '''
+        Sends a request to Google Domains to update the ip of subdomain.domain.
+        The request is formatted as follows:
+            https://domains.google.com/nic/update?hostname=subdomain.domain&myip=ip
+        
+        Arguments:
+            username (str): The username to authenticate with.
+            password (str): The password to authenticate with.
+            domain (str): The domain to update.
+            subdomain (str): The subdomain of the domain to update.
+        '''
+        
         resp = requests.get(
             "https://domains.google.com/nic/update",
             params = {
@@ -90,6 +136,13 @@ class DNSUpdater:
             exit(1)
     
     def run_update(self):
+        '''
+        For each auth_details stored in the config, checks if the subdomain.domain
+        requires an update. If it does, the ip of subdomain.domain is updated.
+        
+        After the update, the function sleeps for ttl seconds before running again.
+        '''
+        
         self.load_logger()
         
         for (username, password, domain, subdomain) in self.config.auth_details:
