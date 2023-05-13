@@ -70,7 +70,7 @@ class DNSUpdater:
             logging.info("IPs match, no update needed")
             return False
     
-    def update_ip(self, username, password, domain, subdomain):
+    def update_ip(self, username: str, password, domain, subdomain):
         resp = requests.get(
             "https://domains.google.com/nic/update",
             params = {
