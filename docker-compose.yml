@@ -4,11 +4,9 @@ name: "DDNS Updater"
 services:
     update:
         build: .
-        environment:
-          # Timezone
-          TZ: "TZ=Australia/Sydney" 
-          
         restart: unless-stopped
         
         volumes:
             - ./logs:/data/logs
+            - /etc/timezone:/etc/timezone:ro
+            - /etc/localtime:/etc/localtime:ro
